@@ -11,8 +11,11 @@ class MoviesController < ApplicationController
   end
 
   def index
+    #session.clear
+
     # By default, all ratings appear
-    @all_ratings = ["G","PG","PG-13","R"]
+    @all_ratings = {'G' => '1','PG' => '1','PG-13' => '1','R' => '1'}
+    #@all_ratings = ['G', 'PG', 'PG-13', 'R']
    
     # if this is the user's first time accessing the page, session[:ratings]
     # will be empty and thus needs to have the full list put into it so that
@@ -48,7 +51,7 @@ class MoviesController < ApplicationController
     # Displays movies according to specifications
     @movies = Movie.where(rating: @ratings_choice.keys).order(@sort_by)
     
-    if(!params[:ratings] and !session[:ratings])
+    if((!params[:ratings] and session[:ratings]))
       flash.keep
       redirect_to movies_path(:sort => session[:sort], :ratings => session[:ratings])
     end
