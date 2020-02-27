@@ -48,10 +48,10 @@ class MoviesController < ApplicationController
     # Displays movies according to specifications
     @movies = Movie.where(rating: @ratings_choice.keys).order(@sort_by)
     
-    #if(!params[:ratings] and !session[:ratings])
-      #flash.keep
-      #redirect_to movies_path(:sort => session[:sort], :ratings => session[:ratings])
-    #end
+    if(!params[:ratings] and !session[:ratings])
+      flash.keep
+      redirect_to movies_path(:sort => session[:sort], :ratings => session[:ratings])
+    end
   end
 
   def new
